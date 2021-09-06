@@ -1,6 +1,7 @@
 <script>
 	import { supabase } from '$lib/supabaseClient';
 	import { user } from '$lib/stores/sessionStore';
+	import SignOut from './SignOut.svelte';
 
 	let loading = true;
 	let username = null;
@@ -58,6 +59,7 @@
 	}
 </script>
 
+<h1>Profile</h1>
 <form use:getProfile on:submit|preventDefault={updateProfile}>
 	<label for="email">Email</label>
 	<input id="email" type="text" value={$user.email} disabled />
@@ -67,3 +69,5 @@
 	<input id="website" type="text" bind:value={website} />
 	<input type="submit" value={loading ? 'Loading ...' : 'Update'} disabled={loading} />
 </form>
+
+<SignOut />

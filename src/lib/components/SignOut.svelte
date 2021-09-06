@@ -1,9 +1,10 @@
 <script>
 	import { supabase } from '$lib/supabaseClient';
+	import { user } from '$lib/stores/sessionStore';
 
 	let message = '';
 	let loading = false;
-	const user = supabase.auth.user();
+	// user.set = supabase.auth.user();
 
 	async function signOut() {
 		try {
@@ -15,10 +16,13 @@
 				message = 'You have signed out';
 			}
 		} catch (error) {
+			// looks like there's a bug in Supabase here that throws an error on signout, but it can be ignored
 			message = `You have signed out`;
-			console.error(error);
+			console.warning(error);
 		} finally {
 			loading = false;
+			user.set(null);
+			console.log($user);
 		}
 	}
 </script>
@@ -28,3 +32,6 @@
 {#if message}
 	<p>{message}</p>
 {/if}
+
+<style>
+</style>
