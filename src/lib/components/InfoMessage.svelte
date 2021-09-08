@@ -1,5 +1,5 @@
 <script>
-	let message;
+	export let message;
 </script>
 
 <p>
@@ -7,5 +7,7 @@
 </p>
 
 <style>
-	color: ;
+	p {
+		color: var(--green);
+	}
 </style>

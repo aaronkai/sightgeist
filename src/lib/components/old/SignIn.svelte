@@ -1,4 +1,5 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { supabase } from '$lib/supabaseClient';
 
 	export let newUser;
@@ -28,17 +29,31 @@
 	}
 </script>
 
-<form on:submit|preventDefault={handleSignin}>
-	<h1>Sign in</h1>
-	<p>Sign in with a username and password</p>
-	<input type="email" placeholder="Your email" autocomplete="email" bind:value={email} />
-	<input
-		type="password"
-		placeholder="Your password"
-		autocomplete="current-password"
-		bind:value={password}
-	/>
-	<input type="submit" value={loading ? 'Loading' : 'Sign In'} disabled={loading} />
+<form id="form" on:submit|preventDefault={handleSignin} transition:fade>
+	<header>
+		<h1>Sign In</h1>
+		<h2>What's up Ghouls?!</h2>
+	</header>
+	<label for="email"
+		>Email:
+		<input
+			id="email"
+			type="email"
+			placeholder="Your email"
+			autocomplete="email"
+			bind:value={email}
+		/>
+	</label>
+	<label for="password"
+		>Password:
+		<input
+			type="password"
+			placeholder="Your password"
+			autocomplete="current-password"
+			bind:value={password}
+		/>
+	</label>
+	<input class="submit" type="submit" value={loading ? 'Loading' : 'Sign In'} disabled={loading} />
 </form>
 <button on:click={() => (newUser = true)}>Do you need to sign up?</button>
 
@@ -57,12 +72,12 @@
 	}
 	header h1 {
 		font-size: 3rem;
+		margin-bottom: 1rem;
 	}
 	form {
 		margin: 1rem 0;
-
 		display: grid;
-		padding: 1rem;
+		padding: 2rem;
 		row-gap: 1rem;
 		border: 2px solid var(--current-line);
 	}
@@ -85,12 +100,24 @@
 	.submit {
 		background-color: var(--green);
 		border: none;
-		padding: 1rem;
+		padding: 0.5rem 1rem;
+		margin-top: 1rem;
+		font-weight: 700;
+		color: var(--off-black);
+	}
+	.submit:hover {
+		background-color: var(--yellow);
 	}
 
 	button {
-		background-color: var(--pink);
+		color: var(--pink);
+		background: none;
 		border: none;
-		color: var(--off-black);
+		font-weight: 700;
+		font-size: 1rem;
+		padding: 0;
+	}
+	button:hover {
+		color: var(--yellow);
 	}
 </style>

@@ -25,11 +25,20 @@ body,
 }
 
 h1 {
-	font-size: 4rem;
+	font-family: 'Amatic SC', cursive;
+	font-weight: 400;
 }
 
-h2 {
-	font-size: 2rem;
+h2,
+h3,
+p,
+a,
+li,
+label,
+input,
+button {
+	font-family: 'Kaisei Tokumin', serif;
+	font-weight: 400;
 }
 
 h1,
@@ -40,4 +49,16 @@ li,
 label,
 fieldset {
 	color: var(--off-white);
+}
+
+h1 {
+	font-size: 5rem;
+}
+
+h2 {
+	font-size: 2rem;
+}
+
+h3 {
+	font-size: 2.5rem;
 }

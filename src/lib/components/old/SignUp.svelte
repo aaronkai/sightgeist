@@ -31,16 +31,16 @@
 	}
 </script>
 
-<header>
-	<h1>Sign Up Now</h1>
-	<h2>Don't be the last ghoul to the graveyard. Sign up before this chance apparates!</h2>
-</header>
-
 {#if message}
 	<ErrorMessage error={message} />
 {/if}
 
 <form on:submit|preventDefault={handleSignup}>
+	<header>
+		<h1>Sign Up Now</h1>
+		<h2>Don't be the last ghoul to the graveyard.</h2>
+		<h2>Sign up before this chance apparates!</h2>
+	</header>
 	<label for="email"
 		>Email:
 		<input id="email" type="email" placeholder="Your email" bind:value={email} />
@@ -57,13 +57,15 @@
 	header {
 		margin-bottom: 2rem;
 		text-align: center;
+		display: grid;
+		row-gap: 1rem;
 	}
 	header h1 {
 		font-size: 3rem;
 	}
+
 	form {
 		margin: 1rem 0;
-
 		display: grid;
 		padding: 2rem;
 		row-gap: 1rem;
@@ -89,14 +91,24 @@
 		background-color: var(--green);
 		border: none;
 		padding: 0.5rem 1rem;
+		margin-top: 1rem;
+
 		font-weight: 700;
 		color: var(--off-black);
 	}
+	.submit:hover {
+		background-color: var(--yellow);
+	}
 
 	button {
-		background-color: var(--pink);
+		color: var(--pink);
+		background: none;
 		border: none;
-		color: var(--off-black);
-		padding: 0.5rem 1rem;
+		font-weight: 700;
+		font-size: 1rem;
+		padding: 0;
+	}
+	button:hover {
+		color: var(--yellow);
 	}
 </style>
