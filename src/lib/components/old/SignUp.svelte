@@ -15,7 +15,7 @@
 			loading = true;
 			const { user, session, error } = await supabase.auth.signUp({
 				email,
-				password
+				password,
 			});
 
 			if (error) {

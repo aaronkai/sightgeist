@@ -31,7 +31,6 @@
 		rel="stylesheet"
 	/>
 </svelte:head>
-
 <div class="wrapper">
 	<main>
 		{#if !formVisible}

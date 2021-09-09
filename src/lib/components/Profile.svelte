@@ -2,6 +2,7 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { user } from '$lib/stores/sessionStore';
 	import SignOut from './SignOut.svelte';
+	import Avatar from './Avatar.svelte';
 
 	let loading = true;
 	let username = null;
@@ -43,11 +44,11 @@
 				username,
 				website,
 				avatar_url,
-				updated_at: new Date()
+				updated_at: new Date(),
 			};
 
 			let { error } = await supabase.from('profiles').upsert(updates, {
-				returning: 'minimal' // Don't return the value after inserting
+				returning: 'minimal', // Don't return the value after inserting
 			});
 
 			if (error) throw error;
@@ -64,6 +65,7 @@
 		<h1>Profile</h1>
 		<h2>Get started creating your profile.</h2>
 	</header>
+	<Avatar bind:path={avatar_url} on:upload={updateProfile} />
 	<label for="email">
 		Email:
 		<input id="email" type="text" value={$user.email} disabled />
