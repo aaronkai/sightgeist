@@ -3,7 +3,6 @@
 	import { supabase } from '$lib/supabaseClient';
 
 	export let path;
-	export let size = '10em';
 
 	let uploading = false;
 	let src;
@@ -49,31 +48,41 @@
 	}
 </script>
 
-<div>
-	{#if path}
-		<img
-			use:downloadImage
-			{src}
-			alt="Avatar"
-			class="avatar image"
-			style="height: {size}; width: {size};"
-		/>
-	{:else}
-		<div class="avatar no-image" style="height: {size}; width: {size};" />
-	{/if}
+{#if path}
+	<img use:downloadImage {src} alt="Avatar" />
+	<label for="single">
+		{uploading ? 'Uploading ...' : 'Change Image'}
+	</label>
+{:else}
+	<label for="single">
+		{uploading ? 'Uploading ...' : 'Upload Image'}
+	</label>
+{/if}
+<input
+	type="file"
+	id="single"
+	accept="image/*"
+	bind:files
+	on:change={uploadAvatar}
+	disabled={uploading}
+/>
 
-	<div style="width: {size};">
-		<label class="button primary block" for="single">
-			{uploading ? 'Uploading ...' : 'Upload'}
-		</label>
-		<input
-			style="visibility: hidden; position:absolute;"
-			type="file"
-			id="single"
-			accept="image/*"
-			bind:files
-			on:change={uploadAvatar}
-			disabled={uploading}
-		/>
-	</div>
-</div>
+<style>
+	img {
+		object-fit: cover;
+		width: 150px;
+		height: 150px;
+		border-radius: 100%;
+	}
+	input {
+		visibility: hidden;
+	}
+	label {
+		color: var(--pink);
+		background: none;
+		border: none;
+		font-weight: 700;
+		font-size: 1rem;
+		padding: 0;
+	}
+</style>

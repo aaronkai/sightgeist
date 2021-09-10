@@ -1,6 +1,4 @@
 <script>
-	import { fade } from 'svelte/transition';
-	import SignOut from '$lib/components/SignOut.svelte';
 	import Profile from '$lib/components/Profile.svelte';
 	import { user } from '$lib/stores/sessionStore';
 	import { supabase } from '$lib/supabaseClient';
@@ -8,7 +6,7 @@
 	import '$lib/styles/global.css';
 	import AuthForm from '$lib/components/AuthForm.svelte';
 
-	let formVisible = false;
+	let ctaVisible = true;
 
 	//instantiate user store
 	user.set(supabase.auth.user());
@@ -19,7 +17,7 @@
 	});
 
 	function handleClick() {
-		formVisible = !formVisible;
+		ctaVisible = !ctaVisible;
 	}
 </script>
 
@@ -33,20 +31,19 @@
 </svelte:head>
 <div class="wrapper">
 	<main>
-		{#if !formVisible}
+		{#if ctaVisible}
 			<header>
-				<h1>SightGeist</h1>
+				<h1>SiteGeist</h1>
 				<div class="subheader">
 					<h2>Spectral Social Media.</h2>
 					<h2>Don't get ghosted.</h2>
 					<button on:click={handleClick}> Pre-register. </button>
 				</div>
 			</header>
-		{/if}
-		{#if $user || formVisible}
+		{:else}
 			<section>
 				{#if $user}
-					<Profile />
+					<Profile bind:ctaVisible />
 				{:else}
 					<AuthForm />
 				{/if}
@@ -60,12 +57,17 @@
 		height: 100%;
 		display: grid;
 		align-items: center;
-		background-image: url('/ghost.svg');
-		background-repeat: no-repeat;
-		background-position-x: center;
-		background-position-y: 3rem;
-		background-size: 3rem;
-		animation: animatedBackground 2s ease-in-out infinite alternate;
+	}
+
+	@media only screen and (min-height: 900px) {
+		.wrapper {
+			background-image: url('/ghost.svg');
+			background-repeat: no-repeat;
+			background-position-x: center;
+			background-position-y: 3rem;
+			background-size: 3rem;
+			animation: animatedBackground 2s ease-in-out infinite alternate;
+		}
 	}
 
 	@keyframes animatedBackground {
@@ -78,17 +80,11 @@
 			background-size: 3rem;
 		}
 	}
-	#animate-area {
-		width: 200px;
-		height: 200px;
-		background-image: url(http://placekitten.com/400/200);
-		background-position: 0px 0px;
-		background-repeat: repeat-x;
-	}
 
 	main {
 		display: grid;
-		/* max-width: 300px; */
+		width: 100%;
+		max-width: 500px;
 		margin: auto;
 		row-gap: 3rem;
 	}
@@ -119,11 +115,4 @@
 		color: var(--off-black);
 		font-size: 1.5rem;
 	}
-	/* 
-	img {
-		position: absolute;
-		max-height: 100px;
-		left: 100px;
-		top: 100px;
-	} */
 </style>

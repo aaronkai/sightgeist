@@ -2,9 +2,10 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { user } from '$lib/stores/sessionStore';
 
+	export let ctaVisible;
+
 	let message = '';
 	let loading = false;
-	// user.set = supabase.auth.user();
 
 	async function signOut() {
 		try {
@@ -23,6 +24,7 @@
 			loading = false;
 			user.set(null);
 			console.log($user);
+			ctaVisible = true;
 		}
 	}
 </script>

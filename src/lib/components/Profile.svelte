@@ -4,6 +4,8 @@
 	import SignOut from './SignOut.svelte';
 	import Avatar from './Avatar.svelte';
 
+	export let ctaVisible;
+
 	let loading = true;
 	let username = null;
 	let website = null;
@@ -13,7 +15,6 @@
 		try {
 			loading = true;
 			const user = supabase.auth.user();
-			console.log(user.id);
 			let { data, error, status } = await supabase
 				.from('profiles')
 				.select(`username, website, avatar_url`)
@@ -21,7 +22,6 @@
 				.single();
 
 			if (error && status !== 406) throw error;
-			console.log({ data, error, status });
 			if (data) {
 				username = data.username;
 				website = data.website;
@@ -84,7 +84,7 @@
 		value={loading ? 'Loading ...' : 'Update'}
 		disabled={loading}
 	/>
-	<SignOut />
+	<SignOut bind:ctaVisible />
 </form>
 
 <style>
@@ -99,6 +99,7 @@
 	form {
 		margin: 1rem;
 		display: grid;
+		justify-items: center;
 		padding: 2rem;
 		row-gap: 1rem;
 		border: 2px solid var(--current-line);
@@ -130,17 +131,5 @@
 	}
 	.submit:hover {
 		background-color: var(--yellow);
-	}
-
-	button {
-		color: var(--pink);
-		background: none;
-		border: none;
-		font-weight: 700;
-		font-size: 1rem;
-		padding: 0;
-	}
-	button:hover {
-		color: var(--yellow);
 	}
 </style>

@@ -1,5 +1,4 @@
 <script>
-	import { fade } from 'svelte/transition';
 	import { supabase } from '$lib/supabaseClient';
 	import ErrorMessage from './ErrorMessage.svelte';
 	import InfoMessage from './InfoMessage.svelte';
